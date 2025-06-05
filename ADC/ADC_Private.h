@@ -1,0 +1,8 @@
+
+#ifndef PRIVATE_ADC_H
+#define PRIVATE_ADC_H
+
+#define ADC_BASE_ADDRESS (0x40012000UL)
+#define ADC_COMMON_BASE (0x40012300UL)
+
+#endif //PRIVATE_ADC_H

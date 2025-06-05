@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.30)
 include(cmake/ArmToolchain.cmake)
 
-project(stm32-template C)
+project(conveyor_belt_project C)
 
 set(CMAKE_C_STANDARD                11)
 set(CMAKE_C_STANDARD_REQUIRED       ON)
@@ -19,7 +19,17 @@ set(STARTUP_BASE_DIR                     ${PROJECT_PATH}/STM32-base/startup/)
 set(EXECUTABLE                           ${CMAKE_PROJECT_NAME})
 
 # Executable files
-add_executable(${EXECUTABLE} ${SOURCE_LIST} ${STARTUP_BASE_DIR}/${SERIES_FOLDER}/${MAPPED_DEVICE}.s)
+add_executable(${EXECUTABLE} ${SOURCE_LIST} ${STARTUP_BASE_DIR}/${SERIES_FOLDER}/${MAPPED_DEVICE}.s
+        Keypad/Keypad.h
+        Keypad/Keypad.c
+        Keypad/Keypad_Config.c
+        EXTI/Exti.c
+        EXTI/Exti.h
+        EXTI/Exti_Private.h
+        ADC/ADC.c
+        ADC/ADC.h
+        ADC/ADC_Private.h
+)
 # Include
 target_include_directories(${EXECUTABLE} PUBLIC ${INCLUDE_LIST})
 # Project symbols
