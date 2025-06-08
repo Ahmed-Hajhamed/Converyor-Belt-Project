@@ -12,6 +12,7 @@ set(INCLUDE_LIST ${INCLUDE_LIST}
         ${PROJECT_PATH}/EXTI
         ${PROJECT_PATH}/ADC
         ${PROJECT_PATH}/LCD
+        ${PROJECT_PATH}/PWM
 )
 
 if (USE_HAL)
