@@ -3,25 +3,6 @@
 #include "Lcd_Config.h"
 #include "Lcd_Private.h"
 
-
-const lcdPin controlPins[3]= {
-    {LCD_RS},
-    {LCD_RW},
-    {LCD_E},
-};
-
-const lcdPin dataPins[8]= {
-    {LCD_D7},
-    {LCD_D6},
-    {LCD_D5},
-    {LCD_D4},
-    {LCD_D3},
-    {LCD_D2},
-    {LCD_D1},
-    {LCD_D0}
-};
-
-
 void delay_ms(uint32 ms) {
     for (uint32 i = 0; i < ms * 1000; i++) {}
 }
@@ -33,17 +14,9 @@ void Lcd_Init() {
         Gpio_Init(controlPins[i].PortName,controlPins[i].PinNumber,GPIO_OUTPUT, GPIO_PUSH_PULL);
     }
 
-    for (uint8 i =0; i < 4; i++) {
-        Gpio_Init(dataPins[i].PortName,dataPins[i].PinNumber,GPIO_OUTPUT, GPIO_PUSH_PULL);
+    for (uint8 i =0; i < 8; i++) {
+        Gpio_Init(dataPins_8[i].PortName,dataPins_8[i].PinNumber,GPIO_OUTPUT, GPIO_PUSH_PULL);
     }
-
-    #if LCD_MODE==8
-        for (uint8 i =4; i < 8; i++) {
-            Gpio_Init(dataPins[i].PortName,dataPins[i].PinNumber,GPIO_OUTPUT, GPIO_PUSH_PULL);
-        }
-    #endif
-
-
     Lcd_Enable(HIGH);
 
     //function set
@@ -52,7 +25,7 @@ void Lcd_Init() {
         Gpio_WritePin(controlPins[i].PortName,controlPins[i].PinNumber, LOW);
     }
     for (uint8 i =0; i < 4; i++) {
-        Gpio_WritePin(dataPins[i].PortName, dataPins[i].PinNumber, (0x1& (0x20>>(7-i)) ) );
+        Gpio_WritePin(dataPins_4[i].PortName, dataPins_4[i].PinNumber, (0x1& (0x20>>(7-i)) ) );
     }
     Lcd_Send_Falling_Edge();
     #endif
@@ -77,7 +50,7 @@ void Lcd_Send_Command(uint8 command) {
             Gpio_WritePin(controlPins[i].PortName,controlPins[i].PinNumber, LOW);
         }
         for (uint8 i =0; i < 8; i++) {
-            Gpio_WritePin(dataPins[i].PortName, dataPins[i].PinNumber, (0x1& (command >>(7-i) )) );
+            Gpio_WritePin(dataPins_8[i].PortName, dataPins_8[i].PinNumber, (0x1& (command >>i )) );
         }
         Lcd_Send_Falling_Edge();
 #elif LCD_MODE == 4
@@ -86,7 +59,7 @@ void Lcd_Send_Command(uint8 command) {
             Gpio_WritePin(controlPins[i].PortName,controlPins[i].PinNumber, LOW);
         }
         for (uint8 i =0; i < 4; i++) {
-            Gpio_WritePin(dataPins[i].PortName, dataPins[i].PinNumber, (0x1& (command >> (7-(i + 4*j)) ) ) ) ;
+            Gpio_WritePin(dataPins_4[i].PortName, dataPins_4[i].PinNumber, (0x1& (command >> (7-(i + 4*j)) ) ) ) ;
         }
         Lcd_Send_Falling_Edge();
     }
@@ -101,24 +74,22 @@ void Lcd_Send_Data(uint8 data) {
             Gpio_WritePin(controlPins[i].PortName,controlPins[i].PinNumber, (0x1&(0x1 >>i )) );
         }
         for (uint8 i =0; i < 8; i++) {
-            Gpio_WritePin(dataPins[i].PortName, dataPins[i].PinNumber, (0x1& (data >>(7-i) ) ));
+            Gpio_WritePin(dataPins_8[i].PortName, dataPins_8[i].PinNumber, (0x1& (data >>i ) ));
         }
         Lcd_Send_Falling_Edge();
-
 #elif LCD_MODE == 4 // 4 bits mode
     for (uint8 j =0 ; j < 2; j++) {
         for (uint8 i =0; i < 2; i++) {
             Gpio_WritePin(controlPins[i].PortName,controlPins[i].PinNumber, (0x1&(0x1 >>i )) );
         }
         for (uint8 i =0; i < 8; i++) {
-            Gpio_WritePin(dataPins[i].PortName, dataPins[i].PinNumber, (0x1& (data >>(7-(i + 4*j)) ) ));
+            Gpio_WritePin(dataPins_4[i].PortName, dataPins_4[i].PinNumber, (0x1& (data >>(7-(i + 4*j)) ) ));
         }
         Lcd_Send_Falling_Edge();
     }
 
 #endif
-
-    delay_ms(1);
+delay_ms(1);
 }
 
 void Lcd_Send_String(const uint8 *string) {
@@ -132,6 +103,10 @@ void Lcd_Send_String(const uint8 *string) {
 void Lcd_Clear() {
     Lcd_Send_Command(LCD_CLEAR_DISPLAY);
     delay_ms(10);
+}
+
+void Lcd_Enable(boolean enable) {
+    Gpio_WritePin(controlPins[2].PortName, controlPins[2].PinNumber,enable);
 }
 
 void Lcd_Set_Position(uint8 row, uint8 column) {
@@ -148,10 +123,6 @@ void Lcd_Set_Position(uint8 row, uint8 column) {
     }
     Lcd_Send_Command(localVariable);
     delay_ms(1);
-}
-
-void Lcd_Enable(boolean enable) {
-    Gpio_WritePin(controlPins[2].PortName, controlPins[2].PinNumber,enable);
 }
 
 static void Lcd_Send_Falling_Edge() {
