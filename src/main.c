@@ -1,3 +1,5 @@
+#include <Speed_Sensor.h>
+
 #include "RCC.h"
 #include "Gpio.h"
 #include "Std_Types.h"
@@ -7,6 +9,7 @@
 void SevenSegDisplay(uint8 number);
 void ConvertToVoltage(uint16 adc_value, uint8 digits[4]);
 void Display_Voltage_On_LCD(uint8 digits[4]);
+void Lcd_Print_Number(uint32 num);
 
 #define SEGMENT_A  GPIO_B, 0
 #define SEGMENT_B  GPIO_B, 1
@@ -33,8 +36,9 @@ int main() {
     Rcc_Enable(RCC_GPIOC);
     Rcc_Enable(RCC_ADC1);
 
-    ADC_Init();
+    // ADC_Init();
     Lcd_Init();
+    Speed_Sensor_Init();
 
     uint32 i;
     for (i = 0; i < 7; i++) {
@@ -54,9 +58,15 @@ int main() {
 
     while (1) {
         uint8 digits[4];
-        uint16 adc_value = ADC_Read();
-        ConvertToVoltage(adc_value, digits);
-        Display_Voltage_On_LCD(digits);
+        // uint16 adc_value = ADC_Read();
+        // ConvertToVoltage(adc_value, digits);
+        // Display_Voltage_On_LCD(digits);
+        uint32 period;
+        uint32 freq;
+        Speed_Sensor_MeasurePeriod(&period);
+        Speed_Sensor_CalculateFrequency(period, &freq);
+        Lcd_Clear();
+        Lcd_Print_Number(period);
 
         // Use the code below to use the 7 segment display
         Gpio_WritePin(GPIO_B, 8, LOW);
@@ -111,5 +121,26 @@ void SevenSegDisplay(uint8 number) {
     for (uint8 i = 0; i < 7; i++) {
         Gpio_WritePin(sevenSegmentMap[i][0], sevenSegmentMap[i][1],
                       ((numbers_array[number] >> i) & 0x01));
+    }
+}
+void Lcd_Print_Number(uint32 num) {
+    char buffer[10];
+    int i = 0;
+
+    // Handle zero explicitly
+    if (num == 0) {
+        Lcd_Send_Data('0');
+        return;
+    }
+
+    // Convert each digit in reverse order
+    while (num > 0 && i < 10) {
+        buffer[i++] = (num % 10) + '0';
+        num /= 10;
+    }
+
+    // Print digits in correct order
+    while (i > 0) {
+        Lcd_Send_Data(buffer[--i]);
     }
 }

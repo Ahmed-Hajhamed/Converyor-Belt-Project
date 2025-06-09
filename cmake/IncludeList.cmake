@@ -13,6 +13,7 @@ set(INCLUDE_LIST ${INCLUDE_LIST}
         ${PROJECT_PATH}/ADC
         ${PROJECT_PATH}/LCD
         ${PROJECT_PATH}/PWM
+        ${PROJECT_PATH}/Speed_Sensor
 )
 
 if (USE_HAL)

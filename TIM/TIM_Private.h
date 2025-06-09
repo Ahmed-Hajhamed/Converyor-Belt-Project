@@ -1,0 +1,6 @@
+#ifndef PRIVATE_TIM_H
+#define PRIVATE_TIM_H
+
+#define TIM5_BASE_ADDRESS (0x40000C00UL)
+
+#endif //PRIVATE_TIM_H

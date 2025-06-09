@@ -32,14 +32,14 @@
 
 /* Measurement Parameters */
 #define SPEED_SENSOR_SAMPLE_COUNT 4U /* Average over 4 pulses */
-#define SPEED_SENSOR_TIMEOUT_MS 5000 /* 1 second timeout */
+#define SPEED_SENSOR_TIMEOUT_MS 1000 /* 1 second timeout */
 #define SPEED_SENSOR_MIN_PERIOD_US 100U /* Minimum 100µs period (10kHz max) */
 #define SPEED_SENSOR_MAX_PERIOD_US 1000000U /* Maximum 1s period (1Hz min) */
 
 /* Clock Configuration */
 #define SPEED_SENSOR_SYSCLK_HZ 16000000U /* 16 MHz HSI system clock */
 #define SPEED_SENSOR_TIMER_PRESCALER                                           \
-    (32U - 1U) /* 1 MHz timer clock (1µs resolution) from 32MHz timer clock */
+    (1U - 1U) /* 1 MHz timer clock (1µs resolution) from 32MHz timer clock */
 
 /* ========================================================================== */
 /*                            FUNCTION PROTOTYPES                            */

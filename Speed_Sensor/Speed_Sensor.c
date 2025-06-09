@@ -185,10 +185,10 @@ uint8 Speed_Sensor_Reset(void)
 static uint8 Speed_Sensor_ConfigureGPIO(void)
 {
     /* Configure PA0 as alternate function for TIM2_CH1 */
-    if (Gpio_Init(SPEED_SENSOR_PORT, SPEED_SENSOR_PIN, GPIO_AF,
-                  GPIO_PUSH_PULL) != OK) {
-        return SPEED_SENSOR_ERROR;
-    }
+    // if (Gpio_Init(SPEED_SENSOR_PORT, SPEED_SENSOR_PIN, GPIO_AF,
+    //               GPIO_PUSH_PULL) != OK) {
+    //     return SPEED_SENSOR_ERROR;
+    // }
 
     /* Set alternate function to TIM2 (AF1) on PA0 */
     /* Clear the AFSEL0 bits first */
