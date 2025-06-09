@@ -3,26 +3,26 @@
 #include "Std_Types.h"
 #include "ADC_Private.h"
 
-#define RES_12_BIT 0x00
-#define RES_10_BIT 0x01
-#define RES_9_BIT 0x02
-#define RES_6_BIT 0x03
+#define RES_12_BIT 0x0
+#define RES_10_BIT 0x1
+#define RES_9_BIT 0x2
+#define RES_6_BIT 0x3
 
-#define RIGHT_ALGN 0x00
-#define LEFT_ALGN 0x01
+#define RIGHT_ALGN 0x0
+#define LEFT_ALGN 0x1
 
 typedef struct {
-    volatile  uint32  SR;           // status register
-    volatile  uint32  CR1;          // control register 1
-    volatile  uint32  CR2;          // control register 2
-    volatile  uint32  SMPRx[2];     // sample time register 1 - 2
-    volatile  uint32  JOFRx[4];     // injected channel data offset register 1 - 4
-    volatile  uint32  HTR;          // watchdog higher threshold register
-    volatile  uint32  LTR;          // watchdog lower threshold register
-    volatile  uint32  SQRx[3];      //  regular sequence register 1 - 3
-    volatile  uint32  JSQR;         //  injected sequence register
-    volatile  uint32  JDRx[4];      //  injected data register 1 - 4
-    volatile  uint32  DR;           // regular data register
+    volatile  uint32  SR;           // Status register
+    volatile  uint32  CR1;          // Control register 1
+    volatile  uint32  CR2;          // Control register 2
+    volatile  uint32  SMPRx[2];     // Sample time register 1 -> 2
+    volatile  uint32  JOFRx[4];     // Injected channel data offset register 1 -> 4
+    volatile  uint32  HTR;          // Watchdog higher threshold register
+    volatile  uint32  LTR;          // Watchdog lower threshold register
+    volatile  uint32  SQRx[3];      // Regular sequence register 1 -> 3
+    volatile  uint32  JSQR;         // Injected sequence register
+    volatile  uint32  JDRx[4];      // Injected data register 1 -> 4
+    volatile  uint32  DR;           // Regular data register
 }Adc_Type;
 
 typedef struct {
