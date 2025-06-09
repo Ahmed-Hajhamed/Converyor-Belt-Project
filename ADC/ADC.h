@@ -5,7 +5,7 @@
 
 #define RES_12_BIT 0x0
 #define RES_10_BIT 0x1
-#define RES_9_BIT 0x2
+#define RES_8_BIT 0x2
 #define RES_6_BIT 0x3
 
 #define RIGHT_ALGN 0x0

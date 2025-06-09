@@ -5,7 +5,7 @@ void ADC_Init(void) {
     Gpio_Init(GPIO_A, 0, GPIO_ANALOG, GPIO_NO_PULL_DOWN); // set PA0 to analog
 
     ADC_COMMON->CCR &= ~(0x3 << 16);
-    ADC_COMMON->CCR |= (0x3 << 16);        // pre scaler division by 8 = 10.5 MHz
+    ADC_COMMON->CCR |= (0x3 << 16);        // pre scaler division by 8 = 10.5 MHz, max. is 36 MHz
 
     ADC_REG->SMPRx[1] &= ~(0x7 << (0 * 2));
     ADC_REG->SMPRx[1] |= (0x2 << (0 * 2)); // set sampling time to 28 cycles
@@ -20,9 +20,9 @@ void ADC_Init(void) {
 }
 
 uint16 ADC_Read(void) {
-    ADC_REG->SQRx[2] &= ~(0x1F);        // total number of conversions = one
+    ADC_REG->SQRx[2] &= ~(0x1F);       // set the first conversion to ADC CH0
 
-    ADC_REG->SQRx[0] &= ~(0xF <<(20));  // set the first conversion to ADC CH0
+    ADC_REG->SQRx[0] &= ~(0xF <<(20));  // total number of conversions = one
 
     ADC_REG->CR2 |= (0x1 << 30);        // start conversion
 
@@ -30,4 +30,3 @@ uint16 ADC_Read(void) {
 
     return ADC_REG->DR;
 }
-
