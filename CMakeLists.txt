@@ -20,9 +20,6 @@ set(EXECUTABLE                           ${CMAKE_PROJECT_NAME})
 
 # Executable files
 add_executable(${EXECUTABLE} ${SOURCE_LIST} ${STARTUP_BASE_DIR}/${SERIES_FOLDER}/${MAPPED_DEVICE}.s
-        Keypad/Keypad.h
-        Keypad/Keypad.c
-        Keypad/Keypad_Config.c
         EXTI/Exti.c
         EXTI/Exti.h
         EXTI/Exti_Private.h

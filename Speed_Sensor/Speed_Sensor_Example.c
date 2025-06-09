@@ -10,7 +10,6 @@
 
 #include <stdio.h>
 #include "Speed_Sensor.h"
-#include "Usart.h"
 
 void Speed_Sensor_BasicExample(void)
 {

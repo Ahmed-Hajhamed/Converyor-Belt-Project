@@ -1,6 +1,7 @@
 #include "TIM.h"
 #include <stm32f401xe.h>
 #include "GPIO.h"
+#define TIMEOUT_COUNT 10000  // Adjust as needed
 
 void TIM_Init(void) {
     Gpio_Init(GPIO_A, 0, GPIO_AF, GPIO_PULL_DOWN);
@@ -21,11 +22,31 @@ void TIM_Init(void) {
 uint32 TIM_GetValue(void) {
     uint32 t1, t2, period;
 
-    while (!(TIM5_REG->SR & (0x1 << 1))); // Wait for 1st edge
+    uint32_t timeout = 0;
+
+    while (!(TIM5->SR & (1 << 1)))  // Wait for 1st edge
+    {
+        if (timeout++ > TIMEOUT_COUNT)
+        {
+            // Timeout occurred
+            // Handle error or break
+            return 0;
+        }
+    }
+
     t1 = TIM5_REG->CCR1;
     TIM5_REG->SR &= ~(0x1 << 1);
 
-    while (!(TIM5_REG->SR & (0x1 << 1))); // Wait for 2nd edge
+    while (!(TIM5->SR & (1 << 1)))  // Wait for 2nd edge
+    {
+        if (timeout++ > TIMEOUT_COUNT)
+        {
+            // Timeout occurred
+            // Handle error or break
+            return 0;
+        }
+    }
+
     t2 = TIM5_REG->CCR1;
     TIM5_REG->SR &= ~(0x1 << 1);
 

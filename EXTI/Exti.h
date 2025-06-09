@@ -25,7 +25,7 @@ typedef struct {
 #define EXTI_REG ((EXTI_TypeDef*) EXTI_BASE_ADDRESS)
 #define NVIC_REG ((NVIC_TypeDef*) NVIC_BASE_ADDRESS)
 
-void Exti_Init(uint8 Line, uint8 Port_Name, uint8 Falling_Edge, uint8 Rising_Edge) ;       // Line, Port, Falling/Rising/Bus
+void Exti_Init(uint8 Port_Name, uint8 Line, uint8 Falling_Edge, uint8 Rising_Edge) ;       // Line, Port, Falling/Rising/Bus
 void Exti_Enable(uint8 Line);  // Line
 void Exti_Disable(uint8 Line); // Line
 
