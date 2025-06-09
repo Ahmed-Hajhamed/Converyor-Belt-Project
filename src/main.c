@@ -48,7 +48,7 @@ int main() {
     Gpio_Init(GPIO_B, 10, GPIO_OUTPUT, GPIO_PUSH_PULL);
 
     Gpio_WritePin(GPIO_B, 7, HIGH);
-    Gpio_WritePin(GPIO_B, 8,HIGH);
+    Gpio_WritePin(GPIO_B, 8, HIGH);
     Gpio_WritePin(GPIO_B, 9, HIGH);
     Gpio_WritePin(GPIO_B, 10,HIGH);
 
@@ -93,7 +93,6 @@ void ConvertToVoltage(uint16 adc_value, uint8 digits[4]) {
 }
 
 void Display_Voltage_On_LCD(uint8 digits[4]) {
-    // Clear LCD and set cursor to beginning (row 0, column 0)
     // Lcd_Clear();
     Lcd_Set_Position(0, 0);
 
