@@ -18,15 +18,15 @@ void ADC_Init(void) {
     ADC_REG->CR2 &= ~(0x1 << 11);
     ADC_REG->CR2 |= (DATA_ALIGNMENT);     // set data alignment
 
-    ADC_REG->CR2 |= (ADC_ADON);            // adc enable
-}
-
-uint16 ADC_Read(void) {
     ADC_REG->SQRx[0] &= ~(0xF <<(20));  // total number of conversions = one
 
     ADC_REG->SQRx[2] &= ~(0x1F);
     ADC_REG->SQRx[2] |= (0x01);       // set the first conversion to ADC CH1
 
+    ADC_REG->CR2 |= (ADC_ADON);            // adc enable
+}
+
+uint16 ADC_Read(void) {
     ADC_REG->CR2 |= (ADC_SWSTART);        // start conversion
 
     while (! (ADC_REG->SR & ADC_EOC)){}    // wait for EOC, cleared by hardware

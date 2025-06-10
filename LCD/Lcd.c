@@ -20,9 +20,6 @@ const lcdPin dataPins[8]= {
     {LCD_D0}
 };
 
-
-
-
 void delay_ms(uint32 ms) {
     for (uint32 i = 0; i < ms * 1000; i++) {}
 }
@@ -138,6 +135,28 @@ void Lcd_Set_Position(uint8 row, uint8 column) {
     }
     Lcd_Send_Command(localVariable);
     delay_ms(1);
+}
+
+void Lcd_Print_Number(uint32 num) {
+    char buffer[10];
+    int i = 0;
+
+    // Handle zero explicitly
+    if (num == 0) {
+        Lcd_Send_Data('0');
+        return;
+    }
+
+    // Convert each digit in reverse order
+    while (num > 0 && i < 10) {
+        buffer[i++] = (num % 10) + '0';
+        num /= 10;
+    }
+
+    // Print digits in correct order
+    while (i > 0) {
+        Lcd_Send_Data(buffer[--i]);
+    }
 }
 
 static void Lcd_Send_Falling_Edge() {

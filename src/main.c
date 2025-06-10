@@ -7,9 +7,6 @@
 #include "PWM.h"
 #include "Exti.h"
 
-void ConvertToVoltage(uint16 adc_value, uint8 digits[4]);
-void Display_Voltage_On_LCD(uint8 digits[4]);
-void Lcd_Print_Number(uint32 num);
 boolean ReadButton(uint8 port_name, uint8 pin_number);
 
 boolean emergency_stop = 0;
@@ -40,9 +37,14 @@ int main() {
     uint8 prev_percentage = 255;  // impossible initial value
     uint8 prev_object_count = 255;
     uint32 prev_period = 0xFFFFFFFF;
+    boolean local_emergency_stop = 0;
 
     while (1) {
-        if (emergency_stop == 1) {
+        Exti_Disable(3);    // Race Condition
+        local_emergency_stop = emergency_stop;
+        Exti_Enable(3);
+
+        if (local_emergency_stop == 1) {
             PWM_Stop();
             Lcd_Set_Position(0, 0);
             Lcd_Send_String((uint8*)"EMERGENCY STOP  ");
@@ -78,11 +80,11 @@ int main() {
             }
 
             uint32 period = TIM_GetValue();
-            float32 freq = 1.0 / (period / 16000000.0);
+            uint32 freq = (16000000.0 / period );
             if (period != prev_period) {
                 Lcd_Set_Position(1, 0);
                 Lcd_Print_Number(freq);
-                Lcd_Send_String((uint8 *)"Hz    ");  // Clear trailing digits
+                Lcd_Send_String((uint8 *)"Hz      ");  // Clear trailing digits
                 prev_period = period;
             }
         }
@@ -90,49 +92,6 @@ int main() {
     return 0;
 }
 
-
-void ConvertToVoltage(uint16 adc_value, uint8 digits[4]) {
-    uint16 mv = ((uint32)adc_value * 3300) / 4095;  // 3.3V VREF, 12-bit ADC
-
-    digits[0] = mv / 1000;          // Thousands
-    digits[1] = (mv / 100) % 10;    // Hundreds
-    digits[2] = (mv / 10) % 10;     // Tens
-    digits[3] = mv % 10;            // Units
-}
-
-void Display_Voltage_On_LCD(uint8 digits[4]) {
-    // Lcd_Clear();
-    Lcd_Set_Position(0, 0);
-
-    for (int i = 0; i < 4; i++) {
-        Lcd_Send_Data('0' + digits[i]);  // Convert digit to ASCII
-    }
-
-    Lcd_Send_String((uint8 *)" mV");
-}
-
-
-void Lcd_Print_Number(uint32 num) {
-    char buffer[10];
-    int i = 0;
-
-    // Handle zero explicitly
-    if (num == 0) {
-        Lcd_Send_Data('0');
-        return;
-    }
-
-    // Convert each digit in reverse order
-    while (num > 0 && i < 10) {
-        buffer[i++] = (num % 10) + '0';
-        num /= 10;
-    }
-
-    // Print digits in correct order
-    while (i > 0) {
-        Lcd_Send_Data(buffer[--i]);
-    }
-}
 void EXTI3_IRQHandler() {
     EXTI_REG->PR |= (0x01 << 3);
     emergency_stop = !emergency_stop;

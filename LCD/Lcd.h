@@ -33,5 +33,6 @@ void Lcd_Send_Command(uint8 command);
 void Lcd_Send_String(const uint8 *string);
 void Lcd_Clear();
 void Lcd_Set_Position(uint8 row, uint8 column);
+void Lcd_Print_Number(uint32 num);
 
 #endif //LCD_H

@@ -1,12 +1,15 @@
 #include "TIM.h"
-#include <stm32f401xe.h>
 #include "GPIO.h"
+#include "TIM_Private.h"
+
 #define TIMEOUT_COUNT 10000  // Adjust as needed
 
 void TIM_Init(void) {
     Gpio_Init(GPIO_A, 0, GPIO_AF, GPIO_PULL_DOWN);
-    GPIOA->AFR[0] &= ~(0xf << (0 * 4));
-    GPIOA->AFR[0] |=  (0x2 << (0 * 4));
+
+    volatile uint32* afrl = (volatile uint32 *)0x40020020; // GPIOA AFRH register
+    *afrl &= ~(0xFUL << (0* 4));  // Clear bits for PA8
+    *afrl |= (0x2 << (0 * 4));     // Set AF2 for TIM5_CH1
 
     TIM5_REG->PSC = 0;       // Prescaler (1 MHz timer clock if 84 MHz system clock)
     TIM5_REG->ARR = 0xFFFFFFFF;  // Max auto-reload for 32-bit timer
@@ -22,14 +25,13 @@ void TIM_Init(void) {
 uint32 TIM_GetValue(void) {
     uint32 t1, t2, period;
 
-    uint32_t timeout = 0;
+    uint32 timeout = 0;
 
-    while (!(TIM5->SR & (1 << 1)))  // Wait for 1st edge
+    while (!(TIM5_REG->SR & (1 << 1)))  // Wait for 1st edge
     {
         if (timeout++ > TIMEOUT_COUNT)
         {
             // Timeout occurred
-            // Handle error or break
             return 0;
         }
     }
@@ -37,12 +39,11 @@ uint32 TIM_GetValue(void) {
     t1 = TIM5_REG->CCR1;
     TIM5_REG->SR &= ~(0x1 << 1);
 
-    while (!(TIM5->SR & (1 << 1)))  // Wait for 2nd edge
+    while (!(TIM5_REG->SR & (1 << 1)))  // Wait for 2nd edge
     {
         if (timeout++ > TIMEOUT_COUNT)
         {
             // Timeout occurred
-            // Handle error or break
             return 0;
         }
     }

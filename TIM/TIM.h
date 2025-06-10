@@ -1,21 +1,20 @@
 #ifndef TIM_H
 #define TIM_H
 #include <Std_Types.h>
-#include "TIM_Private.h"
 
 typedef struct {
-    volatile uint32 CR1;
-    volatile uint32 CR2;
+    volatile uint32 CR1;    // Control Register 1
+    volatile uint32 CR2;    // Control Register 2
     volatile uint32 SMCR;
     volatile uint32 DIER;
-    volatile uint32 SR;
+    volatile uint32 SR;     // State Register
     volatile uint32 EGR;
     volatile uint32 CCMR1;
     volatile uint32 CCMR2;
     volatile uint32 CCER;
     volatile uint32 CNT;
-    volatile uint32 PSC;
-    volatile uint32 ARR;
+    volatile uint32 PSC;    // Prescaler Value
+    volatile uint32 ARR;    // Auto Reload Register
     uint32 RESERVED1;
     volatile uint32 CCR1;
     volatile uint32 CCR2;
@@ -29,7 +28,5 @@ typedef struct {
 
 void TIM_Init(void);
 uint32 TIM_GetValue(void);
-
-#define TIM5_REG ((TIM_Type *)TIM5_BASE_ADDRESS)
 
 #endif //TIM_H
