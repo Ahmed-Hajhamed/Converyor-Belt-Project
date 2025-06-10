@@ -3,7 +3,7 @@
 #define LCD_CONFIG_H
 
 
-#define LCD_MODE  4  // 4 or 8
+#define LCD_MODE  8  // 4 or 8
 
 // VSS--> 0v | VDD-->5v | VO-->Potentiometer
 

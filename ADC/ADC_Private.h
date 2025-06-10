@@ -5,4 +5,7 @@
 #define ADC_BASE_ADDRESS (0x40012000UL)
 #define ADC_COMMON_BASE (0x40012300UL)
 
+#define ADC_COMMON ((ADC_Common_Type *) ADC_COMMON_BASE)
+#define ADC_REG ((Adc_Type*) ADC_BASE_ADDRESS)
+
 #endif //PRIVATE_ADC_H

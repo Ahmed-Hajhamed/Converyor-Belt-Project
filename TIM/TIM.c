@@ -8,7 +8,7 @@ void TIM_Init(void) {
     GPIOA->AFR[0] &= ~(0xf << (0 * 4));
     GPIOA->AFR[0] |=  (0x2 << (0 * 4));
 
-    TIM5_REG->PSC = 84 - 1;       // Prescaler (1 MHz timer clock if 84 MHz system clock)
+    TIM5_REG->PSC = 0;       // Prescaler (1 MHz timer clock if 84 MHz system clock)
     TIM5_REG->ARR = 0xFFFFFFFF;  // Max auto-reload for 32-bit timer
 
     TIM5_REG->CCMR1 &= ~(0x3 << 0);     // Clear CC1S

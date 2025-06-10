@@ -1,0 +1,9 @@
+#ifndef ADC_CONFIG_H
+#define ADC_CONFIG_H
+
+#define ADC_RESOLUTION   CR1_RES_12_BIT
+#define DATA_ALIGNMENT   RIGHT_ALIGN
+#define ADC_SMP_TIME    SMP_28_CYCLES
+#define PSC_DIVISION    PSC_DIV_8
+
+#endif //ADC_CONFIG_H

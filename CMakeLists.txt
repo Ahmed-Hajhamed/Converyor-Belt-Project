@@ -29,6 +29,7 @@ add_executable(${EXECUTABLE} ${SOURCE_LIST} ${STARTUP_BASE_DIR}/${SERIES_FOLDER}
         PWM/PWM.h
         PWM/PWM.c
         PWM/PWM_Private.h
+        ADC/ADC_Config.h
 )
 # Include
 target_include_directories(${EXECUTABLE} PUBLIC ${INCLUDE_LIST})

@@ -78,10 +78,11 @@ int main() {
             }
 
             uint32 period = TIM_GetValue();
+            float32 freq = 1.0 / (period / 16000000.0);
             if (period != prev_period) {
                 Lcd_Set_Position(1, 0);
-                Lcd_Print_Number(period);
-                Lcd_Send_String((uint8 *)"     ");  // Clear trailing digits
+                Lcd_Print_Number(freq);
+                Lcd_Send_String((uint8 *)"Hz    ");  // Clear trailing digits
                 prev_period = period;
             }
         }
