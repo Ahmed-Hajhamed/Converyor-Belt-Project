@@ -13,7 +13,7 @@ void PWM_Init(void) {
 
     // 3. Configure TIM3 for 1 kHz PWM signal
     // Prescaler = 41 → Timer clock = 42MHz / (41+1) = 1MHz
-    TIM1_REG->PSC  = 41;     // Set prescaler
+    TIM1_REG->PSC  = 15;     // Set prescaler
     TIM1_REG->ARR  = 999;    // Auto-reload value to get 1 kHz frequency
     TIM1_REG->CR1  = 0;      // Clear CR1 to reset configuration
     TIM1_REG->CCR1 = 0;      // Start with 0% duty cycle
