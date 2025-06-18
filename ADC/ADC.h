@@ -28,6 +28,23 @@
 #define ADC_SWSTART (0x1 << 30)     // Start conversion of regular channels
 #define ADC_EOC     (0x1 << 1)      // end of conversion flag
 
+#define ADC1_IN0    GPIO_A, 0
+#define ADC1_IN1    GPIO_A, 1
+#define ADC1_IN2    GPIO_A, 2
+#define ADC1_IN3    GPIO_A, 3
+#define ADC1_IN4    GPIO_A, 4
+#define ADC1_IN5    GPIO_A, 5
+#define ADC1_IN6    GPIO_A, 6
+#define ADC1_IN7    GPIO_A, 7
+#define ADC1_IN8    GPIO_B, 0
+#define ADC1_IN9    GPIO_B, 1
+#define ADC1_IN10   GPIO_C, 0
+#define ADC1_IN11   GPIO_C, 1
+#define ADC1_IN12   GPIO_C, 2
+#define ADC1_IN13   GPIO_C, 3
+#define ADC1_IN14   GPIO_C, 4
+#define ADC1_IN15   GPIO_C, 15
+
 typedef struct {
     volatile  uint32  SR;           // Status register
     volatile  uint32  CR1;          // Control register 1
@@ -48,7 +65,7 @@ typedef struct {
     volatile uint32 CDR;   // Common regular data register
 } ADC_Common_Type;
 
-void ADC_Init(void);                    // Initialize ADC
-uint16 ADC_Read(void);                  // Read raw ADC value
+void ADC_Init(uint8 channel);                    // Initialize ADC
+uint16 ADC_Read(uint8 channel);                  // Read raw ADC value
 
 #endif //ADC_H
