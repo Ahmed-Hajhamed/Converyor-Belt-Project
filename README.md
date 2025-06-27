@@ -33,24 +33,9 @@ An embedded firmware project simulating a conveyor belt system using *Bare Metal
 
 ---
 
-## 📁 Repository Structure
+## 📸 Snapshots
 
-```
 
-/
-├── drivers/          # Peripheral drivers (.c/.h)
-│   ├── adc.c
-│   ├── pwm.c
-│   ├── timer\_input\_capture.c
-│   ├── ir\_sensor.c
-│   └── lcd.c
-├── main.c            # System initialization and control loop
-├── proteus/          # Simulation files & screenshots
-├── docs/             # Documentation and report
-└── README.md         # This file
-````
-
----
 
 ## ⚙️ Setup & Usage
 
