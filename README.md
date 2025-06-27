@@ -24,7 +24,7 @@ An embedded firmware project simulating a conveyor belt system using *Bare Metal
 
 | Module                | Driver File           | API Functions                                 |
 |-----------------------|------------------------|-----------------------------------------------|
-| Timer Input Capture   | `TIM.h/.c`             | `TIC_Init()`, `TIC_GetPeriod()` |
+| Timer Input Capture   | `TIM.h/.c`             | `TIM_Init()`, `TIM_GetPeriod()` |
 | ADC                   | `ADC.h/.c`             | `ADC_Init(uint8_t ch)`, `ADC_ReadChannel(uint8_t ch)`   |
 | PWM                   | `PWM.h/.c`             | `PWM_Init()`, `PWM_SetDutyCycle(uint8_t)`     |
 | IR Sensor             | Pushbutton Simulated    | `DetectFallingEdge()` |
@@ -34,6 +34,7 @@ An embedded firmware project simulating a conveyor belt system using *Bare Metal
 ---
 
 ## 📸 Snapshots
+![Uploading conveyor_belt.SVG…]()
 
 
 
