@@ -53,6 +53,7 @@ int main() {
             PWM_Stop();
             Lcd_Set_Position(0, 0);
             Lcd_Send_String((uint8*)"EMERGENCY STOP  ");
+            for (uint32 i=0; i<=50000;i++){} // delay
             Lcd_Clear();
             object_count = 0;
 
