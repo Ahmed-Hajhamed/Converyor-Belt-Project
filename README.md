@@ -1,6 +1,6 @@
 # Conveyor Belt Monitoring & Control System
 
-An embedded firmware project simulating a conveyor belt system using *Bare Metal* programming, STM32 MCU and Proteus. It measures speed, counts objects, controls motor velocity, implements an emergency stop, and displays data on a 16×2 LCD.
+An embedded firmware project simulating a conveyor belt system using ***Bare Metal*** programming, STM32 MCU and Proteus. It measures speed, counts objects, controls motor velocity, implements an emergency stop, and displays data on a 16×2 LCD.
 
 ---
 
@@ -60,19 +60,9 @@ An embedded firmware project simulating a conveyor belt system using *Bare Metal
 
 ## 🎓 Project Insights
 
-* **Driver modularization:** Each peripheral has its own *bare metal* API, enabling reusability.
+* **Driver modularization:** Each peripheral has its own ***bare metal*** API, enabling reusability.
 * **Main controller logic:** Central `main()` coordinates data collection, display, and interrupt handling in a clean loop.
 * **Scalability:** System architecture supports future enhancements (e.g., data logging, IoT integration).
-
----
-
-## 📂 Documentation
-
-In the `docs/` folder, you’ll find:
-
-* Project report with architecture diagrams
-* Detailed driver explanations
-* Annotated simulation screenshots
 
 ---
 
