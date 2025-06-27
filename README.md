@@ -56,7 +56,7 @@ An embedded firmware project simulating a conveyor belt system using *Bare Metal
 
 ## 🎓 Project Insights
 
-* **Driver modularization:** Each peripheral has its own API, enabling reusability.
+* **Driver modularization:** Each peripheral has its own *bare metal* API, enabling reusability.
 * **Main controller logic:** Central `main()` coordinates data collection, display, and interrupt handling in a clean loop.
 * **Scalability:** System architecture supports future enhancements (e.g., data logging, IoT integration).
 
