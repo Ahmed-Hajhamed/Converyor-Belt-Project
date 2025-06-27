@@ -29,14 +29,17 @@ An embedded firmware project simulating a conveyor belt system using *Bare Metal
 | PWM                   | `PWM.h/.c`             | `PWM_Init()`, `PWM_SetDutyCycle(uint8_t)`     |
 | IR Sensor             | Pushbutton Simulated    | `DetectFallingEdge()` |
 | LCD Display           | `LCD.h/.c`             | `LCD_Init()`, `LCD_SetCursor()`, `LCD_Print()` |
+| External Interrupt    | `EXTI.h/.c`             | `Exti_Init(uint8_t line)`, `Exti_Enable_Line(uint8_t line)`, `Exti_Disable_Line(uint8_t line)`|
 | Main Logic            | `main.c`               | Initializes modules, loops, handles emergency stop |
 
 ---
 
 ## 📸 Snapshots
-![Uploading conveyor_belt.SVG…]()
+- **Overview**
+  ![conveyor_belt - Proteus 8 Professional - Schematic Capture 6_27_2025 3_45_45 AM](https://github.com/user-attachments/assets/63736c45-19cc-4600-b065-92aad782d68c)
 
-
+- **Emergency Stop Interrupt**
+  ![conveyor_belt - Proteus 8 Professional - Schematic Capture 6_27_2025 3_48_22 AM](https://github.com/user-attachments/assets/d00fe226-b2c7-4897-a468-601131c39c4b)
 
 ## ⚙️ Setup & Usage
 
@@ -73,13 +76,7 @@ In the `docs/` folder, you’ll find:
 
 ---
 
-## 📹 Demo Video
-
-A short Proteus demo video is available in the `docs/` folder to showcase system functionality.
-
----
-
-## 🤝 Credits & Contributors
+## 🤝 Contributors
 
 * **Ahmed Hajhamed**
 * **Mohamed Ahmed**
